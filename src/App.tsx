@@ -1,62 +1,64 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { Dialog } from "@headlessui/react";
 import tw from "twin.macro";
 import AnimatedBox from "./components/AnimatedBox";
-import { generateSparseArray } from "./utils/generateSparseArray";
-
-const MATRIX_SIZE = 6;
-const LIMIT = 5;
+import Modal from "./components/Dialog";
+import Timer from "./components/Timer";
+import { useGame } from "./hooks/useGame";
 
 const Container = tw.div`h-screen flex items-center flex-col mt-16 justify-center`;
-const Grid = tw.div`grid grid-cols-6 gap-3 m-auto mt-16`;
+const Grid = tw.div`grid grid-cols-6 gap-3 mt-16`;
 const RegenerateButton = tw.button`p-3 bg-teal-500 rounded text-white`;
 
 function App() {
-  const [boxes, setBoxes] = useState<(number | null)[]>(
-    generateSparseArray(MATRIX_SIZE * MATRIX_SIZE, LIMIT)
-  );
+  const [openFinishedDialog, setOpenFinishedDialog] = useState(false);
 
-
-  const [started, setStarted] = useState(false)
-
-  function regenerate() {
-    setStarted(false)
-    setBoxes(generateSparseArray(MATRIX_SIZE * MATRIX_SIZE, LIMIT));
-  }
-
-  function removeBox(index: number) {
-    if (!started) setStarted(true)
-    
-    if (!checkRemoved(index)) { 
-      regenerate()
-      return;
-    }
-    
-    const newBoxes = [...boxes];
-    newBoxes[index] = null;
-    setBoxes(newBoxes);
-  }
-
-  function checkRemoved(index: number) {
-    const minNumber = Math.min(...boxes.filter((n) => n != null) as number[]);
-    return boxes[index] === minNumber;
-  }
-
-  useEffect(() => {
-    if (boxes.every((n) => n == null)) {
-      alert("You win!");
-      regenerate();
-    }
-  }, [boxes]);
+  const {
+    boxes,
+    removeBox,
+    reset,
+    round,
+    started,
+    handleResetTimerComplete,
+    resetTimer,
+  } = useGame();
 
   return (
-    <Container>
-      <RegenerateButton onClick={regenerate}>Regenerate</RegenerateButton>
-      <Grid>
-        {boxes.map((n, i) => (
-          <AnimatedBox started={started} key={i} index={i} removeBox={removeBox} n={n} />
-        ))}
-      </Grid>
-    </Container>
+    <>
+      <Container>
+        <p className="text-2xl">Round: {round}</p>
+        <RegenerateButton onClick={reset}>Regenerate</RegenerateButton>
+        <Grid>
+          {boxes.map((n, i) => (
+            <AnimatedBox
+              started={started}
+              key={i}
+              index={i}
+              removeBox={removeBox}
+              n={n}
+            />
+          ))}
+        </Grid>
+        <Timer
+          resetTimer={resetTimer}
+          handleResetTimerComplete={handleResetTimerComplete}
+        />
+      </Container>
+
+      <Modal isOpen={openFinishedDialog} setIsOpen={setOpenFinishedDialog}>
+        <Dialog.Title
+          as="h3"
+          className="text-lg font-medium leading-6 text-gray-900"
+        >
+          Success!!
+        </Dialog.Title>
+        <div className="mt-2">
+          <p className="text-sm text-gray-500">
+            You have finished the game! Click on the button above to regenerate
+          </p>
+        </div>
+      </Modal>
+    </>
   );
 }
 

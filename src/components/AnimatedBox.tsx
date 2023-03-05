@@ -17,17 +17,21 @@ interface AnimatedBoxProps {
   n: number | null;
   index: number;
   started?: boolean;
-  removeBox: (value: number) => void
+  removeBox: (value: number) => void;
 }
 
-const AnimatedBox: React.FC<AnimatedBoxProps> = ({ n, started = false, index, removeBox }) => {
+const AnimatedBox: React.FC<AnimatedBoxProps> = ({
+  n,
+  started = false,
+  index,
+  removeBox,
+}) => {
   function handleOnClick() {
-    removeBox(index)
+    removeBox(index);
   }
 
   if (n == null) return <DisabledBox />;
 
-  
   return <Box onClick={handleOnClick}>{started ? "" : n}</Box>;
 };
 
