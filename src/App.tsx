@@ -6,7 +6,7 @@ import Modal from "./components/Dialog";
 import Timer from "./components/Timer";
 import { useGame } from "./hooks/useGame";
 
-const Container = tw.div`h-screen flex items-center flex-col mt-16 justify-center`;
+const Container = tw.div`h-screen bg-gray-800 flex items-center flex-col mt-16 justify-center`;
 const Grid = tw.div`grid grid-cols-6 gap-3 mt-16`;
 const RegenerateButton = tw.button`p-3 bg-teal-500 rounded text-white`;
 
@@ -26,7 +26,7 @@ function App() {
   return (
     <>
       <Container>
-        <p className="text-2xl">Round: {round}</p>
+        <p className="text-2xl text-emerald-100 mb-5 font-medium">Round: {round}</p>
         <RegenerateButton onClick={reset}>Regenerate</RegenerateButton>
         <Grid>
           {boxes.map((n, i) => (

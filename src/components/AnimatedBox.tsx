@@ -1,7 +1,7 @@
 import tw from "twin.macro";
 
 const Box = tw.div`cursor-pointer hover:bg-teal-500 transition duration-300 
-                  bg-blue-500 
+                  bg-gray-600
                   h-6 w-6 
                   flex items-center justify-center 
                   text-white text-4xl 
@@ -9,8 +9,9 @@ const Box = tw.div`cursor-pointer hover:bg-teal-500 transition duration-300
                   p-10`;
 
 const DisabledBox = tw.div`bg-white
-                  text-white
                   h-6 w-6  
+                  rounded
+                  bg-emerald-100
                   p-10`;
 
 interface AnimatedBoxProps {
