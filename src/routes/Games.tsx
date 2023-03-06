@@ -1,10 +1,9 @@
 import tw from "twin.macro";
 import { NavLink } from "react-router-dom";
-import { routes } from "..";
 
 const games = [
 	{
-		path: routes.chimp,
+		path: "chimp",
 		name: "Chimp",
 	},
 	{
