@@ -38,8 +38,8 @@ const Timer: React.FC<TimerProps> = ({
   }, [resetTimer, handleResetTimerComplete]);
 
   return (
-    <div className="bg-white w-44 ml-auto">
-      <p className="font-digits font-semibold text-2xl">
+    <div className="bg-gray-800 w-40 ml-auto">
+      <p className="font-digits font-bold text-3xl text-emerald-100">
         {formatTime(milliseconds).minutes} : {formatTime(milliseconds).seconds}{" "}
         : {formatTime(milliseconds).milliseconds}
       </p>
