@@ -42,6 +42,7 @@ function App() {
         <Timer
           resetTimer={resetTimer}
           handleResetTimerComplete={handleResetTimerComplete}
+          reset={reset}
         />
       </Container>
 

@@ -1,13 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Dispatch, SetStateAction } from "react";
 
 interface TimerProps {
   resetTimer: boolean;
   handleResetTimerComplete: () => void;
+  reset: Dispatch<SetStateAction<boolean>>;
 }
 
 const Timer: React.FC<TimerProps> = ({
   resetTimer,
   handleResetTimerComplete,
+  reset,
 }) => {
   const [milliseconds, setMilliseconds] = useState(0);
 
@@ -36,6 +38,13 @@ const Timer: React.FC<TimerProps> = ({
       handleResetTimerComplete();
     }
   }, [resetTimer, handleResetTimerComplete]);
+
+  useEffect(() => {
+    if (milliseconds >= 10000) {
+      handleResetTimerComplete();
+      reset(true);
+    }
+  }, [milliseconds, handleResetTimerComplete, reset]);
 
   return (
     <div className="bg-white w-44 ml-auto">
