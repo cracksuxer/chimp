@@ -2,7 +2,7 @@
 
 Chimp React Game is a fun and challenging game based on the famous Chimp Test, where you need to click on the boxes in the correct order. The objective of the game is to click on the first box, and when you do so, the rest of the boxes disappear. Then, you need to click on the remaining boxes in the correct order as fast as you can.
 \
-![chimp.png](https://i.postimg.cc/httw197S/image.png)
+![chimp.png](https://i.postimg.cc/0yqtVFXd/image-1.png)
 ## Table of Contents
 
 - [Installation](#installation)
